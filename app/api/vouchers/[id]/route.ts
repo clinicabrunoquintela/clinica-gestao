@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 // PATCH - Marcar voucher como usado
 export async function PATCH(
   request: NextRequest,

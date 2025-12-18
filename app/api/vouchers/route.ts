@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
+export const dynamic = "force-dynamic";
+
 // Função para gerar referência única: BQ_ + 4 letras + 4 números
 async function gerarReferencia(): Promise<string> {
   const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

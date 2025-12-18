@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 // DELETE - Apagar entrada da lista de espera
 export async function DELETE(request: NextRequest) {
   try {

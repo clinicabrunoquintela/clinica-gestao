@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
+export const dynamic = "force-dynamic";
+
 // POST - Criar lembrete para entrada da lista de espera
 export async function POST(request: NextRequest) {
   try {

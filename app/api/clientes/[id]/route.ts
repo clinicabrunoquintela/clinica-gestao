@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { validateCliente, normalizePhone } from "@/lib/validations";
 
+export const dynamic = "force-dynamic";
+
 // GET - Buscar cliente por ID
 export async function GET(
   request: NextRequest,

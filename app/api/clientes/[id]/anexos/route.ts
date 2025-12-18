@@ -4,6 +4,8 @@ import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
 
+export const dynamic = "force-dynamic";
+
 // GET - Listar anexos do cliente
 export async function GET(
   request: NextRequest,

@@ -4,6 +4,8 @@ import { unlink } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
 
+export const dynamic = "force-dynamic";
+
 // DELETE - Apagar anexo
 export async function DELETE(
   request: NextRequest,

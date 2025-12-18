@@ -4,6 +4,8 @@ import nodemailer from "nodemailer";
 import { format, addMonths } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
+export const dynamic = "force-dynamic";
+
 // POST - Enviar voucher por email
 export async function POST(
   request: NextRequest,

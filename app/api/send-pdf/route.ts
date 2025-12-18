@@ -3,6 +3,8 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import nodemailer from "nodemailer";
 import { auth } from "@/auth";
+
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
