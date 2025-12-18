@@ -559,7 +559,7 @@ export default function EditarClientePage() {
                   <Label htmlFor="genero">Género/Sexo</Label>
                   <Select
                     value={formData.genero || ""}
-                    onValueChange={(value) => handleSelectChange("genero", value || undefined)}
+                    onValueChange={(value) => handleSelectChange("genero", value || "")}
                   >
                     <SelectTrigger className="mt-2 h-10">
                       <SelectValue placeholder="Selecione o género" />
@@ -577,7 +577,7 @@ export default function EditarClientePage() {
                   <Label htmlFor="estadoCivil">Estado Civil</Label>
                   <Select
                     value={formData.estadoCivil || ""}
-                    onValueChange={(value) => handleSelectChange("estadoCivil", value || undefined)}
+                    onValueChange={(value) => handleSelectChange("estadoCivil", value || "")}
                   >
                     <SelectTrigger className="mt-2 h-10">
                       <SelectValue placeholder="Selecione o estado civil" />
@@ -822,7 +822,7 @@ export default function EditarClientePage() {
                   <Label htmlFor="vacinacao">Vacinação</Label>
                   <Select
                     value={formData.vacinacao || ""}
-                    onValueChange={(value) => handleSelectChange("vacinacao", value || undefined)}
+                    onValueChange={(value) => handleSelectChange("vacinacao", value || "")}
                   >
                     <SelectTrigger className="mt-2 h-10">
                       <SelectValue placeholder="Selecione o estado" />
@@ -840,7 +840,7 @@ export default function EditarClientePage() {
                   <Label htmlFor="certificado">Certificado</Label>
                   <Select
                     value={formData.certificado || ""}
-                    onValueChange={(value) => handleSelectChange("certificado", value || undefined)}
+                    onValueChange={(value) => handleSelectChange("certificado", value || "")}
                   >
                     <SelectTrigger className="mt-2 h-10">
                       <SelectValue placeholder="Selecione o tipo" />
@@ -1041,7 +1041,7 @@ export default function EditarClientePage() {
                   <Label htmlFor="jaFoiPortador">Já foi portador do vírus?</Label>
                   <Select
                     value={formData.jaFoiPortador || ""}
-                    onValueChange={(value) => handleSelectChange("jaFoiPortador", value || undefined)}
+                    onValueChange={(value) => handleSelectChange("jaFoiPortador", value || "")}
                   >
                     <SelectTrigger className="mt-2 h-10">
                       <SelectValue placeholder="Selecione" />
