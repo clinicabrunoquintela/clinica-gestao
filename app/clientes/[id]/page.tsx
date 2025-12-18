@@ -491,7 +491,7 @@ export default function EditarClientePage() {
                   <Label htmlFor="sistemaSubsistema">Sistema / Subsistema</Label>
                   <Select
                     value={formData.sistemaSubsistema || ""}
-                    onValueChange={(value) => handleSelectChange("sistemaSubsistema", value || undefined)}
+                    onValueChange={(value) => handleSelectChange("sistemaSubsistema", value || "")}
                   >
                     <SelectTrigger className="mt-2 h-10">
                       <SelectValue placeholder="Selecione o sistema" />
