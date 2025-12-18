@@ -1,0 +1,174 @@
+@import '../styles/theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 40 20% 96%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+    --primary: 28 88% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 30% 90%;
+    --secondary-foreground: 0 0% 13%;
+    --muted: 30 25% 88%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 35 100% 82%;
+    --accent-foreground: 0 0% 13%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 25% 87%;
+    --input: 30 25% 87%;
+    --ring: 28 88% 53%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-text-dark;
+  }
+}
+
+@layer utilities {
+  .rdp {
+    --rdp-cell-size: 40px;
+    --rdp-accent-color: #F28C1D;
+    --rdp-background-color: #FFD8A6;
+    --rdp-accent-color-dark: #D67511;
+    --rdp-outline: 2px solid var(--rdp-accent-color);
+    --rdp-outline-selected: 3px solid var(--rdp-accent-color);
+    margin: 0;
+  }
+}
+
+/* React Big Calendar Custom Styles */
+.rbc-calendar {
+  font-family: inherit;
+}
+
+.rbc-header {
+  border-bottom: 2px solid #EDE0D0;
+  padding: 12px 6px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.rbc-today {
+  background-color: #F9F6F2;
+}
+
+.rbc-off-range-bg {
+  background-color: #FFFFFF;
+}
+
+.rbc-day-bg {
+  border-color: #EDE0D0;
+}
+
+.rbc-time-slot {
+  border-top-color: #F3E7D9;
+}
+
+.rbc-time-header-content {
+  border-left-color: #EDE0D0;
+}
+
+.rbc-event {
+  background-color: #F28C1D;
+  border-color: #D67511;
+  color: #FFFFFF;
+}
+
+.rbc-event:focus {
+  outline: 2px solid #F28C1D;
+  outline-offset: 2px;
+}
+
+.rbc-selected {
+  background-color: #D67511;
+}
+
+.rbc-toolbar {
+  margin-bottom: 1rem;
+}
+
+.rbc-toolbar button {
+  color: #333333;
+  border-color: #EDE0D0;
+  background-color: #FFFFFF;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #FFD8A6;
+  border-color: #F28C1D;
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: #F28C1D;
+  color: #FFFFFF;
+  border-color: #F28C1D;
+}
+
+.rbc-toolbar-label {
+  font-weight: 600;
+  color: #333333;
+}
+
+/* Custom Scrollbar for SearchableSelect */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Calendar year select dropdown styling */
+.calendar-year-select {
+  height: 26px;
+  max-height: 26px;
+}
+
+.calendar-year-select option {
+  font-size: 12px;
+  padding: 4px;
+}
+
+/* Attempt to limit dropdown height (limited browser support for native selects) */
+.calendar-year-select:focus {
+  position: relative;
+  z-index: 10;
+}
+
+/* For browsers that support it, try to limit dropdown size */
+@supports (-webkit-appearance: none) {
+  .calendar-year-select {
+    -webkit-appearance: none;
+  }
+  
+  /* Some browsers allow controlling dropdown via size attribute, but we use JS for better control */
+  .calendar-year-select[size] {
+    max-height: 180px;
+    overflow-y: auto;
+  }
+}
+
+

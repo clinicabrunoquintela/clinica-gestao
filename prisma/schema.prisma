@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id              Int       @id @default(autoincrement())
+  nomeCompleto    String
+
+  /// Identificação
+  numeroBI        String?
+  nif             String?
+  numeroBeneficiario String?
+  sistema         String?
+  numeroEntidade  String?
+  niss            String?
+  medicoAssistente String?
+
+  /// Dados Pessoais
+  genero          String?
+  estadoCivil     String?
+  dataNascimento  DateTime?
+  profissao       String?
+  email           String?
+  telemovel       String?
+
+  /// Morada
+  morada          String?
+  localidade      String?
+  codigoPostal    String?
+
+  /// COVID-19
+  vacinacao       String?
+  certificadoVacinacao String?
+  certificadoVacinacaoData DateTime?
+  certificadoTestagem String?
+  certificadoTestagemData DateTime?
+  certificadoRecuperacao String?
+  certificadoRecuperacaoData DateTime?
+  jaTeveCovid     String?
+
+  /// Notas
+  observacoes     String?
+  alertas         String?
+
+  marcacoes       Marcacao[]
+  anexos          AnexoUtente[]
+  vouchers        Voucher[]
+  listaEspera     ListaEspera[]
+
+  createdAt       DateTime  @default(now())
+}
+
+model Marcacao {
+  id          Int       @id @default(autoincrement())
+  clienteId   Int
+  cliente     Cliente   @relation(fields: [clienteId], references: [id])
+
+  data        DateTime
+  hora        String
+  tipo        String
+  preco       Float?
+  observacoes String?
+
+  status      String      @default("pendente")
+  pagamento   String?
+  presenca    Boolean?    @default(false)
+  falta       Boolean?    @default(false)
+  createdAt   DateTime    @default(now())
+}
+
+enum Role {
+  ADMIN
+  RECECIONISTA
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(RECECIONISTA)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  lembretesCriados    Lembrete[] @relation("LembreteCriador")
+  lembretesRecebidos  Lembrete[] @relation("LembreteDestino")
+  vouchersCriados     Voucher[]
+}
+
+model Lembrete {
+  id          Int      @id @default(autoincrement())
+  titulo      String
+  descricao   String?
+  dataHora    DateTime
+  notificacao String   // "app" | "email"
+  antecedencia Int     // minutos antes
+  userId      String   // utilizador criador
+  targetId   String   // utilizador que deverá ser alertado
+  enviado     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  criador     User     @relation("LembreteCriador", fields: [userId], references: [id])
+  destino     User     @relation("LembreteDestino", fields: [targetId], references: [id])
+}
+
+model AnexoUtente {
+  id        Int      @id @default(autoincrement())
+  clienteId Int
+  fileName  String
+  filePath  String
+  fileSize  Int?
+  mimeType  String?
+  createdAt DateTime @default(now())
+  
+  cliente   Cliente  @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+}
+
+model Voucher {
+  id             Int       @id @default(autoincrement())
+  referencia     String    @unique
+  validadeMeses  Int
+  valor          Float
+  criadoEm       DateTime  @default(now())
+  criadoPorId    String
+  criadoPor      User      @relation(fields: [criadoPorId], references: [id])
+  utenteId       Int
+  utente         Cliente   @relation(fields: [utenteId], references: [id])
+  descricao      String?
+  observacoes    String?
+  usado          Boolean   @default(false)
+  usadoEm        DateTime?
+}
+
+model ListaEspera {
+  id              Int       @id @default(autoincrement())
+  utenteId        Int
+  utente          Cliente   @relation(fields: [utenteId], references: [id])
+  
+  prioridade      String    // "Baixa" | "Média" | "Alta"
+  terapeuta       String?
+  tipoMarcacao    String?
+  dataInicial     DateTime?
+  dataFinal       DateTime?
+  observacoes     String?
+
+  criadoPor       String?
+  criadoEm        DateTime  @default(now())
+}
