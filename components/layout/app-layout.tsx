@@ -40,7 +40,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
       <div className="flex flex-col flex-1 overflow-hidden">
         <Topbar onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 overflow-y-auto bg-foreground p-4 md:p-6">
+        <main className="flex-1 overflow-y-auto bg-foreground p-4 md:p-6 safe-bottom">
           {children}
         </main>
       </div>

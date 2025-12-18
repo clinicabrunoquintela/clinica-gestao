@@ -22,6 +22,8 @@ import { ArrowLeft, CalendarIcon, Clock, Save, User, DollarSign, FileText } from
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
+import { TIPOS_MARCACAO_ARRAY } from "@/lib/marcacao-types";
 
 interface Cliente {
   id: number;
@@ -52,6 +54,7 @@ export default function CalendarioDiaClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dataParam = searchParams.get("data");
+  const { toast } = useToast();
 
   const [loading, setLoading] = useState(false);
   const [clientes, setClientes] = useState<Cliente[]>([]);
@@ -178,6 +181,11 @@ export default function CalendarioDiaClient() {
         throw new Error(error.error || "Erro ao criar marcação");
       }
 
+      toast({
+        variant: "success",
+        title: "Marcação criada com sucesso",
+      });
+
       // Reset form
       setClienteId(undefined);
       setHora("");
@@ -191,7 +199,11 @@ export default function CalendarioDiaClient() {
       await fetchMarcacoes();
     } catch (error) {
       console.error("Erro ao criar marcação:", error);
-      alert(error instanceof Error ? error.message : "Erro ao criar marcação. Tente novamente.");
+      toast({
+        variant: "destructive",
+        title: "Erro ao criar marcação",
+        description: error instanceof Error ? error.message : "Tente novamente.",
+      });
     } finally {
       setLoading(false);
     }
@@ -365,8 +377,11 @@ export default function CalendarioDiaClient() {
                       <SelectValue placeholder="Selecione o tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="1ª Avaliação">1ª Avaliação</SelectItem>
-                      <SelectItem value="Consulta">Consulta</SelectItem>
+                      {TIPOS_MARCACAO_ARRAY.map((tipo) => (
+                        <SelectItem key={tipo} value={tipo}>
+                          {tipo}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>

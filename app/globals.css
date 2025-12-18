@@ -39,6 +39,11 @@
 }
 
 @layer utilities {
+  /* Safe area for mobile browsers (iOS bottom bar) */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  
   .rdp {
     --rdp-cell-size: 40px;
     --rdp-accent-color: #F28C1D;
