@@ -16,7 +16,7 @@ interface Cliente {
   telemovel?: string | null;
 }
 
-interface Marcacao {
+interface MarcacaoUtente {
   id: number;
   clienteId: number;
   data: string;
@@ -31,16 +31,29 @@ interface Marcacao {
   };
 }
 
+// Tipo compatível com CalendarYearWithEvents (subset de MarcacaoUtente)
+interface MarcacaoCalendario {
+  id: number;
+  data: string;
+  hora: string;
+  tipo: string;
+  status: string;
+  cliente: {
+    id: number;
+    nomeCompleto: string;
+  };
+}
+
 export default function CalendarioUtentePage() {
   const [selectedUtente, setSelectedUtente] = useState<Cliente | null>(null);
   const [selectedUtenteId, setSelectedUtenteId] = useState<number | undefined>(undefined);
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loadingClientes, setLoadingClientes] = useState(true);
-  const [marcacoes, setMarcacoes] = useState<Marcacao[]>([]);
+  const [marcacoes, setMarcacoes] = useState<MarcacaoUtente[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedDateMarcacoes, setSelectedDateMarcacoes] = useState<Marcacao[]>([]);
+  const [selectedDateMarcacoes, setSelectedDateMarcacoes] = useState<MarcacaoUtente[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
 
   // Carregar clientes para o SearchableSelect
@@ -114,7 +127,7 @@ export default function CalendarioUtentePage() {
   }, [selectedUtenteId]);
 
   // Handler para clique no dia do calendário
-  const handleDayClick = (date: Date, marcacoesDoDia: Marcacao[]) => {
+  const handleDayClick = (date: Date, marcacoesDoDia: MarcacaoCalendario[]) => {
     // Buscar todas as marcações do dia (mesmo que só mostremos a primeira no calendário)
     const dateKey = format(date, "yyyy-MM-dd");
     const marcacoesDoDiaCompletas = marcacoes.filter((m) => {
