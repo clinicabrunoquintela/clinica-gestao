@@ -257,8 +257,16 @@ export default function EditarClientePage() {
       };
 
       // Normalizar data (validar antes de converter)
-      const normalizeDate = (date: Date | undefined | null): string | null => {
-        if (!date || !(date instanceof Date) || isNaN(date.getTime())) return null;
+      const normalizeDate = (date: Date | string | undefined | null): string | null => {
+        if (!date) return null;
+        // Se for string formatada (DD/MM/YYYY), usar parseDMY
+        if (typeof date === "string") {
+          if (date === "__/__/____" || date.trim() === "") return null;
+          const parsed = parseDMY(date);
+          return parsed ? parsed.toISOString() : null;
+        }
+        // Se for Date
+        if (!(date instanceof Date) || isNaN(date.getTime())) return null;
         return date.toISOString();
       };
 
