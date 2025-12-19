@@ -507,30 +507,68 @@ export default function DashboardPage() {
                 >
                   <div className="flex items-start md:items-center gap-4 flex-1 min-w-0">
                     <div className="flex-1 min-w-0">
-                      <TooltipProvider>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          {marcacao.cliente.alertas && marcacao.cliente.alertas.trim() !== "" && (
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0" />
-                              </TooltipTrigger>
-                              <TooltipContent className="max-w-xs p-3 text-sm bg-white shadow-md border rounded-md">
-                                <p className="font-semibold mb-1">Alertas do utente:</p>
-                                <ul className="list-disc ml-4">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {marcacao.cliente.alertas && marcacao.cliente.alertas.trim() !== "" && (
+                          <>
+                            {/* Desktop: Tooltip com hover */}
+                            <TooltipProvider>
+                              <Tooltip delayDuration={200}>
+                                <TooltipTrigger asChild>
+                                  <button
+                                    type="button"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="hidden md:inline-flex"
+                                    aria-label="Ver alertas do utente"
+                                  >
+                                    <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0" />
+                                  </button>
+                                </TooltipTrigger>
+                                <TooltipContent className="max-w-xs p-3 text-sm bg-white shadow-md border rounded-md">
+                                  <p className="font-semibold mb-1">Alertas do utente:</p>
+                                  <ul className="list-disc ml-4">
+                                    {marcacao.cliente.alertas
+                                      .split(',')
+                                      .map((a, idx) => (
+                                        <li key={idx}>{a.trim()}</li>
+                                      ))}
+                                  </ul>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                            {/* Mobile: Popover com tap */}
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <button
+                                  type="button"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="md:hidden"
+                                  aria-label="Ver alertas do utente"
+                                >
+                                  <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0" />
+                                </button>
+                              </PopoverTrigger>
+                              <PopoverContent 
+                                className="w-[90vw] max-w-sm p-4 text-sm bg-white shadow-lg border rounded-lg"
+                                align="center"
+                                sideOffset={8}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <p className="font-semibold mb-2 text-text-dark">Alertas do utente:</p>
+                                <ul className="list-disc ml-4 space-y-1 text-text-dark break-words leading-relaxed">
                                   {marcacao.cliente.alertas
                                     .split(',')
                                     .map((a, idx) => (
-                                      <li key={idx}>{a.trim()}</li>
+                                      <li key={idx} className="break-words">{a.trim()}</li>
                                     ))}
                                 </ul>
-                              </TooltipContent>
-                            </Tooltip>
-                          )}
-                          <span className="font-semibold text-text-dark break-words">
-                            {marcacao.cliente.nomeCompleto}
-                          </span>
-                        </div>
-                      </TooltipProvider>
+                              </PopoverContent>
+                            </Popover>
+                          </>
+                        )}
+                        <span className="font-semibold text-text-dark break-words">
+                          {marcacao.cliente.nomeCompleto}
+                        </span>
+                      </div>
                       <div className="flex flex-wrap items-center gap-2 md:gap-4 mt-1">
                         <div className="flex items-center gap-1.5">
                           <Clock className="w-4 h-4 text-text-light flex-shrink-0" />

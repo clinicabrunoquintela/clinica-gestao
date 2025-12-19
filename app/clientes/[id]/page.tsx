@@ -1161,13 +1161,14 @@ export default function EditarClientePage() {
           </Card>
 
           {/* Botões */}
-          <div className="flex justify-between gap-4 pt-6">
+          <div className="flex flex-col md:flex-row md:justify-between gap-4 pt-6">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
                   type="button"
                   variant="destructive"
                   disabled={loading || deleting}
+                  className="w-full md:w-auto"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
                   Apagar Ficha
@@ -1192,19 +1193,20 @@ export default function EditarClientePage() {
               </AlertDialogContent>
             </AlertDialog>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => router.back()}
                 disabled={loading}
+                className="w-full md:w-auto"
               >
                 Cancelar
               </Button>
               <Button
                 type="submit"
                 disabled={loading}
-                className="bg-primary hover:bg-primary-dark text-white"
+                className="bg-primary hover:bg-primary-dark text-white w-full md:w-auto"
               >
                 <Save className="w-4 h-4 mr-2" />
                 {loading ? "A guardar..." : "Guardar Alterações"}

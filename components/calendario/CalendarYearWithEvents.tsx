@@ -133,7 +133,7 @@ export function CalendarYearWithEvents({
       </div>
 
       {/* Grid de 12 meses */}
-      <div className="flex-1 overflow-y-auto max-h-[calc(100vh-220px)]">
+      <div className="flex-1 overflow-y-visible max-h-none md:overflow-y-auto md:max-h-[calc(100vh-220px)]">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-[1fr]">
           {meses.map(({ mes, nome }) => {
             const dias = getDiasDoMes(mes);

@@ -39,7 +39,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex items-center justify-center bg-foreground p-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))]">
+    <div className="min-h-[100dvh] flex items-center justify-center bg-foreground p-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1.5rem,calc(1rem+env(safe-area-inset-bottom,0px)+20px))]">
       <Card className="w-full max-w-md border-primary/20 shadow-lg">
         <CardHeader className="text-center">
           <Image

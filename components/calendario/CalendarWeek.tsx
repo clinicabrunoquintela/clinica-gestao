@@ -248,7 +248,7 @@ export function CalendarWeek({
         </div>
 
         {/* Corpo do calendário - Flex container para dividir espaço verticalmente */}
-        <div className="flex flex-col flex-1 min-h-0 overflow-y-auto">
+        <div className="flex flex-col flex-1 min-h-0 overflow-y-visible md:overflow-y-auto">
           {horas.map((hora) => (
             <div key={hora} className="flex h-[50px] border-b border-gray-200 last:border-b-0">
               {/* Coluna 0 - Horas */}

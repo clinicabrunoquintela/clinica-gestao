@@ -448,7 +448,7 @@ export default function ListaEsperaPage() {
                 />
               </div>
 
-              <div className="flex justify-end gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row sm:justify-end gap-4 pt-4">
                 <Button
                   type="button"
                   variant="outline"
@@ -456,10 +456,11 @@ export default function ListaEsperaPage() {
                     setShowForm(false);
                     setUtenteId(undefined);
                   }}
+                  className="w-full sm:w-auto"
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" className="bg-primary hover:bg-primary-dark text-white">
+                <Button type="submit" className="bg-primary hover:bg-primary-dark text-white w-full sm:w-auto">
                   <Save className="w-4 h-4 mr-2" />
                   Inserir utente na Lista de Espera
                 </Button>
