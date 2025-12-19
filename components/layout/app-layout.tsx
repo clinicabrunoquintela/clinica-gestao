@@ -32,7 +32,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             onClick={() => setSidebarOpen(false)}
           />
           {/* Sidebar Mobile */}
-          <div className="fixed inset-0 h-[100dvh] z-50 w-64 bg-gradient-to-b from-white to-purple-50 border-r border-border md:hidden pt-[env(safe-area-inset-top,0px)] md:pt-0">
+          <div className="fixed top-0 left-0 h-[100dvh] w-64 bg-gradient-to-b from-white to-purple-50 border-r border-border z-[60] md:hidden pt-[env(safe-area-inset-top,0px)] md:pt-0">
             <Sidebar onClose={() => setSidebarOpen(false)} />
           </div>
         </>
