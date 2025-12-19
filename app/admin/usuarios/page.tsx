@@ -40,7 +40,7 @@ interface Usuario {
   id: string;
   name: string;
   email: string;
-  role: "ADMIN" | "RECECIONISTA";
+  role: "ADMIN" | "RECECIONISTA" | "DOUTOR";
   createdAt: string;
 }
 
@@ -58,7 +58,7 @@ export default function AdminUsuariosPage() {
     name: "",
     email: "",
     password: "",
-    role: "RECECIONISTA" as "ADMIN" | "RECECIONISTA",
+    role: "RECECIONISTA" as "ADMIN" | "RECECIONISTA" | "DOUTOR",
   });
 
   useEffect(() => {
@@ -441,7 +441,7 @@ export default function AdminUsuariosPage() {
               <Label htmlFor="role">Role</Label>
               <Select
                 value={formData.role}
-                onValueChange={(value: "ADMIN" | "RECECIONISTA") =>
+                onValueChange={(value: "ADMIN" | "RECECIONISTA" | "DOUTOR") =>
                   setFormData({ ...formData, role: value })
                 }
               >
@@ -451,6 +451,7 @@ export default function AdminUsuariosPage() {
                 <SelectContent>
                   <SelectItem value="RECECIONISTA">Rececionista</SelectItem>
                   <SelectItem value="ADMIN">Admin</SelectItem>
+                  <SelectItem value="DOUTOR">Doutor</SelectItem>
                 </SelectContent>
               </Select>
             </div>

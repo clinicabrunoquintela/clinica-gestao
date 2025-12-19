@@ -16,7 +16,7 @@ export async function PUT(
     if (!session || session.user?.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Não autorizado" },
-        { status: 403 }
+        { status: 401 }
       );
     }
 
@@ -99,7 +99,7 @@ export async function DELETE(
     if (!session || session.user?.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Não autorizado" },
-        { status: 403 }
+        { status: 401 }
       );
     }
 

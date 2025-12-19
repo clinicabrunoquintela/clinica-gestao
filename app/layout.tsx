@@ -10,6 +10,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Dr. Bruno Quintela - Osteopatia",
   description: "Sistema de gestão para clínica de osteopatia",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover",
+  },
 };
 
 export default function RootLayout({

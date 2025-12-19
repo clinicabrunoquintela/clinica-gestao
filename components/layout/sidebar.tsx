@@ -55,14 +55,16 @@ export function Sidebar({ onClose }: SidebarProps) {
             <X className="w-5 h-5" />
           </Button>
         )}
-        <Image
-          src="/logo.jpeg"
-          alt="Logo"
-          width={260}
-          height={260}
-          priority
-          className="w-auto h-24 object-contain mx-auto"
-        />
+        <Link href="/dashboard" className="cursor-pointer">
+          <Image
+            src="/logo.jpeg"
+            alt="Logo"
+            width={260}
+            height={260}
+            priority
+            className="w-auto h-24 object-contain mx-auto"
+          />
+        </Link>
       </div>
 
       {/* Navigation */}

@@ -44,6 +44,26 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   
+  /* Mobile viewport height fix */
+  @media (max-width: 768px) {
+    html {
+      height: -webkit-fill-available;
+      /* Smooth scroll behavior */
+      scroll-behavior: smooth;
+      /* Prevent scroll jump when browser bar appears/disappears */
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    body {
+      min-height: 100dvh;
+      min-height: -webkit-fill-available;
+      /* Prevent content shift */
+      position: relative;
+    }
+    
+    /* Ensure main content respects safe areas - handled by app-layout.tsx */
+  }
+  
   .rdp {
     --rdp-cell-size: 40px;
     --rdp-accent-color: #F28C1D;

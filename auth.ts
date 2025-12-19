@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { compare } from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
 
+export const runtime = "nodejs";
+
 export const authConfig = {
   session: { strategy: "jwt" },
   pages: {
@@ -51,7 +53,7 @@ export const authConfig = {
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id as string;
-        session.user.role = token.role as "ADMIN" | "RECECIONISTA";
+        session.user.role = token.role as "ADMIN" | "RECECIONISTA" | "DOUTOR";
       }
       return session;
     },

@@ -194,7 +194,7 @@ export function CalendarYearWithEvents({
                           key={index}
                           type="button"
                           onClick={() => handleDayClick(dia)}
-                          className="flex items-center justify-center w-6 h-6 rounded-full text-[12px] font-semibold text-[#444] focus:outline-none transition-transform duration-[120ms] ease-in-out hover:scale-[1.12]"
+                          className="flex items-center justify-center w-6 h-6 rounded-full text-[12px] font-semibold text-[#444] focus:outline-none transition-transform duration-\[120ms\] ease-in-out hover:scale-[1.12]"
                           style={{ 
                             backgroundColor: bgColor,
                             border: `1px solid ${borderColor}`,
@@ -212,7 +212,7 @@ export function CalendarYearWithEvents({
                           key={index}
                           type="button"
                           onClick={() => handleDayClick(dia)}
-                          className="flex items-center justify-center w-6 h-6 rounded-full text-[12px] bg-amber-100 text-amber-500 font-semibold ring-amber-300 hover:bg-amber-200 focus:outline-none transition-transform duration-[120ms] ease-in-out hover:scale-[1.12]"
+                          className="flex items-center justify-center w-6 h-6 rounded-full text-[12px] bg-amber-100 text-amber-500 font-semibold ring-amber-300 hover:bg-amber-200 focus:outline-none transition-transform duration-\[120ms\] ease-in-out hover:scale-[1.12]"
                         >
                           {dayNumber}
                         </button>
@@ -226,7 +226,7 @@ export function CalendarYearWithEvents({
                         type="button"
                         onClick={() => handleDayClick(dia)}
                         className={cn(
-                          "flex items-center justify-center w-6 h-6 rounded-full text-[12px] text-[#444] transition-transform duration-[120ms] ease-in-out hover:scale-[1.12]",
+                          "flex items-center justify-center w-6 h-6 rounded-full text-[12px] text-[#444] transition-transform duration-\[120ms\] ease-in-out hover:scale-[1.12]",
                           "hover:bg-[#f4f4f4] focus:outline-none"
                         )}
                       >

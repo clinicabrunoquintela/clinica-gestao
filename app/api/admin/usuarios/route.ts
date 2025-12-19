@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     if (!session || session.user?.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Não autorizado" },
-        { status: 403 }
+        { status: 401 }
       );
     }
 
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     if (!session || session.user?.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Não autorizado" },
-        { status: 403 }
+        { status: 401 }
       );
     }
 

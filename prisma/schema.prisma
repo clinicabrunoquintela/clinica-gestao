@@ -76,6 +76,7 @@ model Marcacao {
 enum Role {
   ADMIN
   RECECIONISTA
+  DOUTOR
 }
 
 model User {

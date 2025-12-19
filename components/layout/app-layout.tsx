@@ -17,7 +17,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen md:h-screen min-h-[100dvh] overflow-hidden">
       {/* Sidebar Desktop - sempre visível em md+ */}
       <div className="hidden md:block">
         <Sidebar />
@@ -40,7 +40,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
       <div className="flex flex-col flex-1 overflow-hidden">
         <Topbar onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 overflow-y-auto bg-foreground p-4 md:p-6 safe-bottom">
+        <main className="flex-1 overflow-y-auto bg-foreground p-4 md:p-6 pb-[calc(1rem+env(safe-area-inset-bottom))] md:pb-6">
           {children}
         </main>
       </div>

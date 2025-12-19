@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -76,16 +76,16 @@ export default function DashboardPage() {
   const { toast } = useToast();
   const [stats, setStats] = useState<Stats | null>(null);
   const [marcacoesHoje, setMarcacoesHoje] = useState<Marcacao[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [marcacaoToDelete, setMarcacaoToDelete] = useState<number | null>(null);
   const [updatingId, setUpdatingId] = useState<number | null>(null);
+  const initialLoadDone = useRef(false);
 
   const fetchMarcacoes = React.useCallback(async (data: Date) => {
     try {
-      setLoading(true);
       const dataStr = format(data, "yyyy-MM-dd");
       const response = await fetch(`/api/marcacoes?data=${dataStr}`);
       if (response.ok) {
@@ -94,41 +94,55 @@ export default function DashboardPage() {
       }
     } catch (error) {
       console.error("Erro ao buscar marcações:", error);
-    } finally {
-      setLoading(false);
     }
   }, []);
 
+  // Load inicial unificado - executa apenas uma vez
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        // Buscar estatísticas e marcações em paralelo
+        const [statsResponse, marcacoesData] = await Promise.all([
+          fetch("/api/dashboard/stats"),
+          fetch(`/api/marcacoes?data=${format(selectedDate, "yyyy-MM-dd")}`),
+        ]);
 
-        // Buscar estatísticas
-        const statsResponse = await fetch("/api/dashboard/stats");
+        // Processar estatísticas
         if (statsResponse.ok) {
           const statsData = await statsResponse.json();
           setStats(statsData);
         }
 
-        // Buscar marcações da data selecionada
-        await fetchMarcacoes(selectedDate);
+        // Processar marcações
+        if (marcacoesData.ok) {
+          const marcacoes = await marcacoesData.json();
+          setMarcacoesHoje(marcacoes);
+        }
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
+      } finally {
+        // Desativar loading inicial apenas uma vez
+        setInitialLoading(false);
+        initialLoadDone.current = true;
       }
     };
 
     fetchData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Atualizar marcações quando a data muda (após o load inicial)
   useEffect(() => {
-    fetchMarcacoes(selectedDate);
+    // Não executar no mount inicial (já buscamos no load inicial)
+    if (initialLoadDone.current) {
+      fetchMarcacoes(selectedDate);
+    }
   }, [selectedDate, fetchMarcacoes]);
 
   // Listener para actualizações externas (ex: modal de criar marcação)
   useEffect(() => {
     const onMarcacaoCreated = (ev: Event) => {
       try {
+        // Refetch silencioso quando uma nova marcação é criada
         fetchMarcacoes(selectedDate);
       } catch (err) {
         console.error("Erro a processar marcacao:created", err);
@@ -171,8 +185,11 @@ export default function DashboardPage() {
       });
 
       if (response.ok) {
-        await fetchMarcacoes(selectedDate);
-        router.refresh();
+        const updatedMarcacao = await response.json();
+        // Atualizar apenas a marcação afetada no estado local
+        setMarcacoesHoje((prev) =>
+          prev.map((m) => (m.id === id ? updatedMarcacao : m))
+        );
       } else {
         console.error("Erro ao atualizar marcação");
       }
@@ -192,10 +209,10 @@ export default function DashboardPage() {
       });
 
       if (response.ok) {
-        await fetchMarcacoes(selectedDate);
+        // Remover apenas a marcação apagada do estado local
+        setMarcacoesHoje((prev) => prev.filter((m) => m.id !== marcacaoToDelete));
         setDeleteDialogOpen(false);
         setMarcacaoToDelete(null);
-        router.refresh();
       } else {
         console.error("Erro ao deletar marcação");
       }
@@ -317,7 +334,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      {loading ? (
+      {initialLoading ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
             <Card key={i} className="border-primary/20">
@@ -470,7 +487,7 @@ export default function DashboardPage() {
           </div>
         </CardHeader>
         <CardContent className="pt-6">
-          {loading ? (
+          {initialLoading ? (
             <div className="flex items-center justify-center py-8">
               <p className="text-text-light">A carregar marcações...</p>
             </div>
