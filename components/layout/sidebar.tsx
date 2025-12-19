@@ -55,7 +55,11 @@ export function Sidebar({ onClose }: SidebarProps) {
             <X className="w-5 h-5" />
           </Button>
         )}
-        <Link href="/dashboard" className="cursor-pointer">
+        <Link 
+          href="/dashboard" 
+          className="cursor-pointer"
+          onClick={handleLinkClick}
+        >
           <Image
             src="/logo.jpeg"
             alt="Logo"

@@ -31,7 +31,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
 
   return (
     <>
-      <div className="h-20 bg-white border-b border-border flex items-center justify-between px-4 md:px-6 shadow-sm">
+      <div className="h-20 bg-white border-b border-border flex items-center justify-between px-4 md:px-6 shadow-sm sticky top-0 z-40 pt-[env(safe-area-inset-top,0px)] md:pt-0">
         <div className="flex items-center gap-4">
           {/* Botão hambúrguer - mobile only */}
           <Button

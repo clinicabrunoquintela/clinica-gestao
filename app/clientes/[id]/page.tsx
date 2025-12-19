@@ -1161,7 +1161,7 @@ export default function EditarClientePage() {
           </Card>
 
           {/* Botões */}
-          <div className="flex flex-col md:flex-row md:justify-between gap-4 pt-6">
+          <div className="flex flex-col md:flex-row md:justify-between gap-4 pt-6 mb-[env(safe-area-inset-bottom,32px)] md:mb-0">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button

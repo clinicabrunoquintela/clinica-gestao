@@ -416,7 +416,7 @@ export default function CalendarioDiaClient() {
                 />
               </div>
 
-              <div className="flex flex-col md:flex-row justify-end gap-2 pt-4">
+              <div className="flex flex-col md:flex-row justify-end gap-2 pt-4 mb-[env(safe-area-inset-bottom,32px)] md:mb-0">
                 <Button
                   type="submit"
                   disabled={loading}

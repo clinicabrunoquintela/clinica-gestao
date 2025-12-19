@@ -448,7 +448,7 @@ export default function ListaEsperaPage() {
                 />
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:justify-end gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row sm:justify-end gap-4 pt-4 mb-[env(safe-area-inset-bottom,32px)] sm:mb-0">
                 <Button
                   type="button"
                   variant="outline"
